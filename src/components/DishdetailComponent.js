@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-class DishdetailComponent extends Component {
+class Dishdetail extends Component {
   constructor(props) {
     super(props);
   }
@@ -23,7 +23,7 @@ class DishdetailComponent extends Component {
       return (
         <ul class="list-unstyled">
           <li>{comment.comment}</li>
-          <li>-- {comment.author}, {comment.date.substring(0, 10)}</li>
+          <li>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
         </ul>          
       );
     });
@@ -36,24 +36,26 @@ class DishdetailComponent extends Component {
   }
     
   render() {
-    const dish = this.props.selectedDish;  // get the selected dish from MenuComponent
+    const dish = this.props.dish;  // get the selected dish from MenuComponent
     if (dish == null) {
       return (
         <div></div>
       );
     }
-    const comments = this.props.selectedDish.comments;
+    const comments = this.props.dish.comments;
     return (
-      <div className="row">
-        <div  className="col-12 col-md-5 m-1">
-          { this.renderDish(dish) }
-        </div>
-        <div className="col-12 col-md-5 m-1">
-          { this.renderComments(comments) }
-        </div>
-      </div>  
+      <div className="container">
+        <div className="row">
+          <div  className="col-12 col-md-5 m-1">
+            { this.renderDish(dish) }
+          </div>
+          <div className="col-12 col-md-5 m-1">
+            { this.renderComments(comments) }
+          </div>
+        </div>  
+      </div>
     );
   }
 }
 
-export default DishdetailComponent;
+export default Dishdetail;
